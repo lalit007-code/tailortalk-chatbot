@@ -5,7 +5,7 @@ import pandas as pd
 from langchain_experimental.agents import create_pandas_dataframe_agent
 from dotenv import load_dotenv,find_dotenv
 from langchain_groq import ChatGroq
-from tabulate import tabulate
+
 
 
 
