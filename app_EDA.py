@@ -5,7 +5,7 @@ import pandas as pd
 from langchain_experimental.agents import create_pandas_dataframe_agent
 from dotenv import load_dotenv,find_dotenv
 from langchain_groq import ChatGroq
-
+from tabulate import tabulate
 
 
 
@@ -56,7 +56,7 @@ if st.session_state.clicked[1]:
 
 
 
-        pandas_agent = create_pandas_dataframe_agent(llm,df,verbose=True,allow_dangerous_code=True)
+        pandas_agent = create_pandas_dataframe_agent(llm,df,verbose=True,allow_dangerous_code=True,number_of_head_rows=0)
 
 
         @st.cache_data()
