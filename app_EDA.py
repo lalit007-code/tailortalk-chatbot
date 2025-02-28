@@ -5,7 +5,7 @@ import pandas as pd
 from langchain_experimental.agents import create_pandas_dataframe_agent
 from dotenv import load_dotenv,find_dotenv
 from langchain_groq import ChatGroq
-
+from tabulate import tabulate
 
 load_dotenv(find_dotenv())
 
@@ -46,16 +46,17 @@ if st.session_state.clicked[1]:
 
         @st.cache_data()
         def functon_agent():
-             st.write("Data Overview")
-             st.write("The First row data looks like this")
-             st.write(df.head())
-             coloumns_name = pandas_agent.run("list out all the columns name")
-             if isinstance(coloumns_name, list):
-                 coloumns_name = ", ".join(coloumns_name)  # Convert list to comma-separated string
+            st.write("Data Overview")
+            st.write("The First row data looks like this")
+            st.write(df.head())
+            coloumns_name = pandas_agent.run("list out all the columns name")
 
-             st.header("Columns name you are interested to know ")
-             st.subheader("Type the columns name and get visualize data on that")
-             st.text(coloumns_name)
+            # Format column names into a table
+            if isinstance(coloumns_name, list):
+                coloumns_table = tabulate([[col] for col in coloumns_name], headers=["Column Names"], tablefmt="grid")
+            else:
+                coloumns_table = coloumns_name  # Keep as is if not a list
+
 
         @st.cache_data()
         def function_question_variable(user_question_variable):
